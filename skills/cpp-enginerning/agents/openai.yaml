@@ -1,0 +1,4 @@
+interface:
+  display_name: "C++ Engineering"
+  short_description: "以契约和证据改进 C++ 代码，检查生命周期、并发、兼容与性能成本"
+  default_prompt: "使用 $cpp-enginerning 完成当前 C++ 工程任务，限制范围并报告行为契约和验证证据。"
