@@ -1,0 +1,37 @@
+--- before/port.hpp
++++ after/port.hpp
+@@ -9,7 +9,7 @@
+     if (text.empty()) return false;
+     unsigned value = 0;
+     const auto parsed = std::from_chars(text.data(), text.data() + text.size(), value);
+-    if (parsed.ec != std::errc{} || value > 65535) return false;
++    if (parsed.ec != std::errc{} || parsed.ptr != text.data() + text.size() || value > 65535) return false;
+     out = static_cast<std::uint16_t>(value);
+     return true;
+ }
+--- before/port_test.cpp
++++ after/port_test.cpp
+@@ -8,7 +8,8 @@
+         ++checks;
+         if (!parse_port(text, out)) ++failures;
+     }
+-    for (auto text : {"", "-1", "+1", " 1", "65536", "99999999999999999999"}) {
++    for (auto text : {"", "-1", "+1", " 1", "65536", "99999999999999999999",
++                      "8080abc", "1 ", "1\n", "1.5", "0x10", "65535x"}) {
+         std::uint16_t out = 17;
+         ++checks;
+         if (parse_port(text, out) || out != 17) ++failures;
+@@ -16,6 +17,13 @@
+     std::uint16_t max = 0;
+     ++checks;
+     if (!parse_port("65535", max) || max != 65535) ++failures;
++    std::uint16_t out = 17;
++    ++checks;
++    if (parse_port(std::string_view("80\0x", 4), out) || out != 17) ++failures;
++    ++checks;
++    if (!parse_port(std::string_view("8080x", 4), out) || out != 8080) ++failures;
++    ++checks;
++    if (!parse_port("00080", out) || out != 80) ++failures;
+     std::cout << "checks=" << checks << " failures=" << failures << '\n';
+     return failures == 0 ? 0 : 1;
+ }

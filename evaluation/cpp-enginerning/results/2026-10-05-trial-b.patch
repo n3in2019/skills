@@ -1,0 +1,65 @@
+--- before/lifetime.hpp
++++ after/lifetime.hpp
+@@ -22,15 +22,27 @@
+ private:
+     Trace& trace_;
+ };
+-inline int process(Trace& trace, int input, bool fail_dispatch) {
+-    Lease lease(trace);
+-    trace.events.push_back("validate");
+-    if (input < 0) return -1;
++namespace dispatch_detail {
++inline int prepare(Trace& trace, int input) {
+     const int prepared = input + 1; // contract: input <= 1000
+     trace.events.push_back("prepare");
++    return prepared;
++}
++
++inline void dispatch(Trace& trace, bool fail_dispatch) {
+     if (!trace.active) throw std::logic_error("inactive lease");
+     trace.events.push_back("dispatch");
+     if (fail_dispatch) throw std::runtime_error("dispatch failed");
+     trace.events.push_back("complete");
++}
++} // namespace dispatch_detail
++
++inline int process(Trace& trace, int input, bool fail_dispatch) {
++    // The lease spans both operations and releases on early return or exception.
++    Lease lease(trace);
++    trace.events.push_back("validate");
++    if (input < 0) return -1;
++    const int prepared = dispatch_detail::prepare(trace, input);
++    dispatch_detail::dispatch(trace, fail_dispatch);
+     return prepared;
+ }
+--- before/lifetime_test.cpp
++++ after/lifetime_test.cpp
+@@ -2,8 +2,9 @@
+ #include <iostream>
+ 
+ int main() {
++    int checks = 0;
+     int failures = 0;
+-    const auto check = [&](bool ok) { if (!ok) ++failures; };
++    const auto check = [&](bool ok) { ++checks; if (!ok) ++failures; };
+     Trace good;
+     check(process(good, 7, false) == 8);
+     check(good.events == std::vector<std::string>{"acquire", "validate", "prepare", "dispatch", "complete", "release"});
+@@ -19,6 +20,16 @@
+     check(caught);
+     check(failed.events == std::vector<std::string>{"acquire", "validate", "prepare", "dispatch", "release"});
+     check(!failed.active);
+-    std::cout << "checks=9 failures=" << failures << '\n';
++    for (int input : {0, 1000}) {
++        Trace boundary;
++        check(process(boundary, input, false) == input + 1);
++        check(boundary.events == std::vector<std::string>{"acquire", "validate", "prepare", "dispatch", "complete", "release"});
++        check(!boundary.active);
++    }
++    Trace invalid_with_failure;
++    check(process(invalid_with_failure, -1, true) == -1);
++    check(invalid_with_failure.events == std::vector<std::string>{"acquire", "validate", "release"});
++    check(!invalid_with_failure.active);
++    std::cout << "checks=" << checks << " failures=" << failures << '\n';
+     return failures == 0 ? 0 : 1;
+ }

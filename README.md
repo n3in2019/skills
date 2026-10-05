@@ -38,3 +38,7 @@ Frontmatter 包含 `name`、`description`，名称与目录一致。用 skill-cr
 C++ 任务优先选择 `cpp-enginerning`；其他语言或通用质量任务选择 `improve-code-quality`。二者独立携带所需资料，无需同时加载。名称 `cpp-enginerning` 按用户指定拼写保留。
 
 C++ 版参考 2026-10-05 工程原则讨论产出的代码质量 skill 与 C++ 审查清单，保留契约、小步变换和验证诚实原则；未复制旧包中未执行的评测或历史通过记录。
+
+## C++ skill 的研究与评测
+
+[研究结论](docs/research/cpp-enginerning-2026-10-05.md) 记录一手依据、规则取舍和证据边界；[行为评测](evaluation/cpp-enginerning/README.md) 提供独立夹具、复跑命令与结果。评测材料不需要随 skill 安装。

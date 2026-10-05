@@ -1,0 +1,7 @@
+{
+  "case": "port",
+  "compile_exit": 0,
+  "compile_diagnostics": "",
+  "run_exit": 1,
+  "output": "checks=18 failures=3\n"
+}

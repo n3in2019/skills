@@ -1,0 +1,12 @@
+{
+  "mutation": "Release the lease before validation/dispatch",
+  "grader_exit": 1,
+  "detected": true,
+  "grader": {
+    "case": "lifetime",
+    "compile_exit": 0,
+    "compile_diagnostics": "",
+    "run_exit": -6,
+    "output": "terminate called after throwing an instance of 'std::logic_error'\n  what():  inactive lease\n"
+  }
+}

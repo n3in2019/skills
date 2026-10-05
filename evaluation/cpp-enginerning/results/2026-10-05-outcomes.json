@@ -1,0 +1,134 @@
+[
+  {
+    "case": "lifetime",
+    "compile_exit": 0,
+    "compile_diagnostics": "",
+    "run_exit": 0,
+    "output": "checks=9 failures=0\n",
+    "trial": "a",
+    "skill_version": "baseline",
+    "grader_exit": 0,
+    "skill_files_sha256": {
+      "SKILL.md": "121f0f343ece414e3bc97a4b3d671c6e5f56fbc409d754ab3f015b7d7d56464f",
+      "agents/openai.yaml": "32a03bb0f13a0873e89b3df8b8d980bb25f2f09d9605194888c6c8c9d5c138a4",
+      "references/cpp-review.md": "bccf4c90aba11bbce9aa73d471edf9570c72f8dacaa1d2179f6873bfea0e657a",
+      "references/examples.md": "8eac79dca07c42cdd47f5cc06f038818818f7389a09ee0ab1d6d7ad55360d6b6"
+    }
+  },
+  {
+    "case": "lifetime",
+    "compile_exit": 0,
+    "compile_diagnostics": "",
+    "run_exit": 0,
+    "output": "checks=9 failures=0\n",
+    "trial": "b",
+    "skill_version": "candidate-stage-1",
+    "grader_exit": 0,
+    "skill_files_sha256": {
+      "SKILL.md": "0a981ae2f67a9ef5b4e9ea0de9d9d1ce5d5f2f9d91f31ef286caa99d3799ab0f",
+      "agents/openai.yaml": "32a03bb0f13a0873e89b3df8b8d980bb25f2f09d9605194888c6c8c9d5c138a4",
+      "references/cpp-review.md": "2ffb63fe613d12a6c28f847f4e6b61d2031d793ab881ffd4818bd0803f177b7e",
+      "references/design-decisions.md": "35d05f689f364f7ac04a43c0561c04353b39fded3b8b6ed09fd16e95a1171137",
+      "references/examples.md": "8eac79dca07c42cdd47f5cc06f038818818f7389a09ee0ab1d6d7ad55360d6b6",
+      "references/platform-checks.md": "306cb56e90206a9236ebcdd8f86f43ea3a4306f0e91a2932554fa891f830680c",
+      "references/sources.md": "a00556d2717df0eb576f9bcd67376cda9ddb0cd26d8964b8b284429ac3684a32",
+      "references/verification.md": "7b97b0a46198f9e103ecdb1f91f00af3d26ff6981f4556293168c714f85a60b3"
+    }
+  },
+  {
+    "case": "port",
+    "compile_exit": 0,
+    "compile_diagnostics": "",
+    "run_exit": 0,
+    "output": "checks=18 failures=0\n",
+    "trial": "c",
+    "skill_version": "baseline",
+    "grader_exit": 0,
+    "skill_files_sha256": {
+      "SKILL.md": "121f0f343ece414e3bc97a4b3d671c6e5f56fbc409d754ab3f015b7d7d56464f",
+      "agents/openai.yaml": "32a03bb0f13a0873e89b3df8b8d980bb25f2f09d9605194888c6c8c9d5c138a4",
+      "references/cpp-review.md": "bccf4c90aba11bbce9aa73d471edf9570c72f8dacaa1d2179f6873bfea0e657a",
+      "references/examples.md": "8eac79dca07c42cdd47f5cc06f038818818f7389a09ee0ab1d6d7ad55360d6b6"
+    }
+  },
+  {
+    "case": "port",
+    "compile_exit": 0,
+    "compile_diagnostics": "",
+    "run_exit": 0,
+    "output": "checks=18 failures=0\n",
+    "trial": "d",
+    "skill_version": "candidate-stage-1",
+    "grader_exit": 0,
+    "skill_files_sha256": {
+      "SKILL.md": "0a981ae2f67a9ef5b4e9ea0de9d9d1ce5d5f2f9d91f31ef286caa99d3799ab0f",
+      "agents/openai.yaml": "32a03bb0f13a0873e89b3df8b8d980bb25f2f09d9605194888c6c8c9d5c138a4",
+      "references/cpp-review.md": "2ffb63fe613d12a6c28f847f4e6b61d2031d793ab881ffd4818bd0803f177b7e",
+      "references/design-decisions.md": "35d05f689f364f7ac04a43c0561c04353b39fded3b8b6ed09fd16e95a1171137",
+      "references/examples.md": "8eac79dca07c42cdd47f5cc06f038818818f7389a09ee0ab1d6d7ad55360d6b6",
+      "references/platform-checks.md": "306cb56e90206a9236ebcdd8f86f43ea3a4306f0e91a2932554fa891f830680c",
+      "references/sources.md": "a00556d2717df0eb576f9bcd67376cda9ddb0cd26d8964b8b284429ac3684a32",
+      "references/verification.md": "7b97b0a46198f9e103ecdb1f91f00af3d26ff6981f4556293168c714f85a60b3"
+    }
+  },
+  {
+    "case": "review",
+    "source_unchanged": true,
+    "findings": "MANUAL REVIEW REQUIRED",
+    "trial": "e",
+    "skill_version": "candidate-stage-1",
+    "grader_exit": 0,
+    "skill_files_sha256": {
+      "SKILL.md": "0a981ae2f67a9ef5b4e9ea0de9d9d1ce5d5f2f9d91f31ef286caa99d3799ab0f",
+      "agents/openai.yaml": "32a03bb0f13a0873e89b3df8b8d980bb25f2f09d9605194888c6c8c9d5c138a4",
+      "references/cpp-review.md": "2ffb63fe613d12a6c28f847f4e6b61d2031d793ab881ffd4818bd0803f177b7e",
+      "references/design-decisions.md": "35d05f689f364f7ac04a43c0561c04353b39fded3b8b6ed09fd16e95a1171137",
+      "references/examples.md": "8eac79dca07c42cdd47f5cc06f038818818f7389a09ee0ab1d6d7ad55360d6b6",
+      "references/platform-checks.md": "306cb56e90206a9236ebcdd8f86f43ea3a4306f0e91a2932554fa891f830680c",
+      "references/sources.md": "a00556d2717df0eb576f9bcd67376cda9ddb0cd26d8964b8b284429ac3684a32",
+      "references/verification.md": "7b97b0a46198f9e103ecdb1f91f00af3d26ff6981f4556293168c714f85a60b3"
+    }
+  },
+  {
+    "case": "session",
+    "compile_exit": 0,
+    "compile_diagnostics": "",
+    "run_exit": 0,
+    "output": "checks=8 failures=0\n",
+    "trial": "f",
+    "skill_version": "candidate-stage-2",
+    "grader_exit": 0,
+    "skill_files_sha256": {
+      "SKILL.md": "fe3c6bcbcb78b5a8dc8bc04158654087a1c4a3da12cdb6ed90797f119b79f4a2",
+      "agents/openai.yaml": "32a03bb0f13a0873e89b3df8b8d980bb25f2f09d9605194888c6c8c9d5c138a4",
+      "references/api-design.md": "e4ddc7b4c8def9a29fbb159e4070c0bcfd801453fb3e0aaf03bb318c1806261d",
+      "references/async-contracts.md": "94b78bc2baa0c2a15a13a950b8b84b6413ed85d93fb63cf57cbf1071c7bc93f8",
+      "references/cpp-review.md": "867ff7f35c0cb9454f5ffe2c897b3e953b502b9ef0bb92dda228eff8072bdb99",
+      "references/design-decisions.md": "35d05f689f364f7ac04a43c0561c04353b39fded3b8b6ed09fd16e95a1171137",
+      "references/examples.md": "8eac79dca07c42cdd47f5cc06f038818818f7389a09ee0ab1d6d7ad55360d6b6",
+      "references/platform-checks.md": "306cb56e90206a9236ebcdd8f86f43ea3a4306f0e91a2932554fa891f830680c",
+      "references/sources.md": "f002ac929188eecc495349b2e1108db82ff9afc5508bba612c23de962a3e6a11",
+      "references/verification.md": "7b97b0a46198f9e103ecdb1f91f00af3d26ff6981f4556293168c714f85a60b3"
+    }
+  },
+  {
+    "case": "coroutine",
+    "source_unchanged": true,
+    "findings": "MANUAL REVIEW REQUIRED",
+    "trial": "g",
+    "skill_version": "candidate-stage-2",
+    "grader_exit": 0,
+    "skill_files_sha256": {
+      "SKILL.md": "fe3c6bcbcb78b5a8dc8bc04158654087a1c4a3da12cdb6ed90797f119b79f4a2",
+      "agents/openai.yaml": "32a03bb0f13a0873e89b3df8b8d980bb25f2f09d9605194888c6c8c9d5c138a4",
+      "references/api-design.md": "e4ddc7b4c8def9a29fbb159e4070c0bcfd801453fb3e0aaf03bb318c1806261d",
+      "references/async-contracts.md": "94b78bc2baa0c2a15a13a950b8b84b6413ed85d93fb63cf57cbf1071c7bc93f8",
+      "references/cpp-review.md": "867ff7f35c0cb9454f5ffe2c897b3e953b502b9ef0bb92dda228eff8072bdb99",
+      "references/design-decisions.md": "35d05f689f364f7ac04a43c0561c04353b39fded3b8b6ed09fd16e95a1171137",
+      "references/examples.md": "8eac79dca07c42cdd47f5cc06f038818818f7389a09ee0ab1d6d7ad55360d6b6",
+      "references/platform-checks.md": "306cb56e90206a9236ebcdd8f86f43ea3a4306f0e91a2932554fa891f830680c",
+      "references/sources.md": "f002ac929188eecc495349b2e1108db82ff9afc5508bba612c23de962a3e6a11",
+      "references/verification.md": "7b97b0a46198f9e103ecdb1f91f00af3d26ff6981f4556293168c714f85a60b3"
+    }
+  }
+]

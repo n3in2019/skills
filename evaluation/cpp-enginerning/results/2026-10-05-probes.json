@@ -1,0 +1,56 @@
+{
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+  "compiler": [
+    "c++ (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0",
+    "Copyright (C) 2023 Free Software Foundation, Inc.",
+    "This is free software; see the source for copying conditions.  There is NO",
+    "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
+    ""
+  ],
+  "tools": {
+    "c++": "/usr/bin/c++",
+    "cmake": null,
+    "ctest": null,
+    "clang++": null,
+    "clang-tidy": null
+  },
+  "ubsan_probe": [
+    {
+      "mode": "recover",
+      "compile_exit": 0,
+      "flags": [
+        "-std=c++17",
+        "-fsanitize=undefined"
+      ],
+      "status": "OBSERVED",
+      "exit_code": 0,
+      "diagnostic_detected": true,
+      "stderr": "<temp>/overflow.cpp:2:75: runtime error: signed integer overflow: 1 + 2147483647 cannot be represented in type 'int'\n"
+    },
+    {
+      "mode": "failfast",
+      "compile_exit": 0,
+      "flags": [
+        "-std=c++17",
+        "-fsanitize=undefined",
+        "-fno-sanitize-recover=all"
+      ],
+      "status": "OBSERVED",
+      "exit_code": 1,
+      "diagnostic_detected": true,
+      "stderr": "<temp>/overflow.cpp:2:75: runtime error: signed integer overflow: 1 + 2147483647 cannot be represented in type 'int'\n"
+    }
+  ],
+  "test_selection_probe": [
+    {
+      "selection": "port_unit",
+      "exit_code": 0,
+      "output": "tests=0\n"
+    },
+    {
+      "selection": "port_contract",
+      "exit_code": 0,
+      "output": "checks=11 failures=0\ntests=1\n"
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+=================================================================
+==40==ERROR: AddressSanitizer: stack-use-after-return on address 0x7fc69c5001e0 at pc 0x55b167b41017 bp 0x7ffc85c384e0 sp 0x7ffc85c384d0
+READ of size 8 at 0x7fc69c5001e0 thread T0
+    #0 0x55b167b41016 in std::__shared_ptr<int, (__gnu_cxx::_Lock_policy)2>::get() const /usr/include/c++/13/bits/shared_ptr_base.h:1666
+    #1 0x55b167b3f533 in std::__shared_ptr_access<int, (__gnu_cxx::_Lock_policy)2, false, false>::_M_get() const /usr/include/c++/13/bits/shared_ptr_base.h:1363
+    #2 0x55b167b3dbc5 in std::__shared_ptr_access<int, (__gnu_cxx::_Lock_policy)2, false, false>::operator*() const /usr/include/c++/13/bits/shared_ptr_base.h:1350
+    #3 0x55b167b3706d in operator() review-repro/../coroutine.hpp:27
+    #4 0x55b167b3dae4 in std::__n4861::coroutine_handle<Task::promise_type>::resume() const /usr/include/c++/13/coroutine:240
+    #5 0x55b167b3c037 in Task::resume() review-repro/../coroutine.hpp:19
+    #6 0x55b167b39a00 in main review-repro/repro.cpp:43
+    #7 0x7fc69e6091c9  (/lib/x86_64-linux-gnu/libc.so.6+0x2a1c9) (BuildId: 274eec488d230825a136fa9c4d85370fed7a0a5e)
+    #8 0x7fc69e60928a in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28a) (BuildId: 274eec488d230825a136fa9c4d85370fed7a0a5e)
+    #9 0x55b167b36564 in _start (/workspace/scratch/ad3783921f79/research-work/run-g/review-repro/repro+0x16564) (BuildId: 6517dd08e844a0dba375dfeaac8e2207a409dfd9)
+
+Address 0x7fc69c5001e0 is located in stack of thread T0 at offset 32 in frame
+    #0 0x55b167b3ca41 in make_task(std::shared_ptr<int>) review-repro/../coroutine.hpp:24
+
+  This frame has 1 object(s):
+    [32, 48) 'work' (line 25) <== Memory access at offset 32 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /usr/include/c++/13/bits/shared_ptr_base.h:1666 in std::__shared_ptr<int, (__gnu_cxx::_Lock_policy)2>::get() const
+Shadow bytes around the buggy address:
+  0x7fc69c4fff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7fc69c4fff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7fc69c500000: f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5
+  0x7fc69c500080: f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5
+  0x7fc69c500100: f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5
+=>0x7fc69c500180: f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5[f5]f5 f5 f5
+  0x7fc69c500200: f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5
+  0x7fc69c500280: f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5
+  0x7fc69c500300: f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5
+  0x7fc69c500380: f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5
+  0x7fc69c500400: f1 f1 f1 f1 00 f3 f3 f3 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==40==ABORTING

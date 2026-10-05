@@ -1,0 +1,77 @@
+--- before/session.hpp
++++ after/session.hpp
+@@ -1,5 +1,6 @@
+ #pragma once
+ #include <functional>
++#include <memory>
+ #include <string>
+ #include <utility>
+ #include <vector>
+@@ -17,17 +18,21 @@
+     // Latest start wins; cancel suppresses publication, not queued work.
+     // Each accepted operation may publish at most once.
+     void start(int value) {
+-        active_ = true;
+-        queue_.post([this, value] {
+-            if (!active_) return;
++        // Queued callbacks retain their identity, so it cannot be reused while
++        // stale work exists (unlike a wrapping generation counter).
++        auto operation = std::make_shared<const char>(0);
++        queue_.post([this, value, operation] {
++            if (active_operation_ != operation) return;
+             published_.push_back(value);
+-            active_ = false;
++            active_operation_.reset();
+         });
++        // Only replace the active operation after posting succeeds.
++        active_operation_ = std::move(operation);
+     }
+-    void cancel() { active_ = false; }
++    void cancel() { active_operation_.reset(); }
+     const std::vector<int>& published() const { return published_; }
+ private:
+     ManualQueue& queue_;
+-    bool active_ = false;
++    std::shared_ptr<const char> active_operation_;
+     std::vector<int> published_;
+ };
+--- before/session_test.cpp
++++ after/session_test.cpp
+@@ -7,6 +7,37 @@
+       check(s.published() == std::vector<int>{7}); }
+     { ManualQueue q; Session s(q); s.start(7); s.cancel(); q.complete(0);
+       check(s.published().empty()); }
++    // Cancellation leaves queued work behind; it must not consume a new start.
++    { ManualQueue q; Session s(q); s.start(7); s.cancel(); s.start(8);
++      q.complete(0); q.complete(0);
++      check(s.published().empty());
++      q.complete(1); q.complete(1);
++      check(s.published() == std::vector<int>{8}); }
++    // Latest start wins even without an intervening cancellation.
++    { ManualQueue q; Session s(q); s.start(7); s.start(8);
++      q.complete(0);
++      check(s.published().empty());
++      q.complete(1);
++      check(s.published() == std::vector<int>{8}); }
++    // A callback that already published cannot publish again during a new start.
++    { ManualQueue q; Session s(q); s.start(7); q.complete(0); s.start(8);
++      q.complete(0);
++      check(s.published() == std::vector<int>{7});
++      q.complete(1); q.complete(0); q.complete(1);
++      check(s.published() == std::vector<int>({7, 8})); }
++    // Complete newest first, then replay both callbacks during another start.
++    { ManualQueue q; Session s(q); s.start(7); s.start(8); q.complete(1);
++      q.complete(0);
++      check(s.published() == std::vector<int>{8});
++      s.start(9); q.complete(1); q.complete(0);
++      check(s.published() == std::vector<int>{8});
++      q.complete(2); q.complete(2);
++      check(s.published() == std::vector<int>({8, 9})); }
++    { ManualQueue q; Session s(q); s.cancel(); s.start(7); s.start(8);
++      s.cancel(); s.cancel(); q.complete(1); q.complete(0);
++      check(s.published().empty());
++      s.start(9); q.complete(0); q.complete(1); q.complete(2);
++      check(s.published() == std::vector<int>{9}); }
+     std::cout << "checks=" << checks << " failures=" << failures << '\n';
+     return failures == 0 ? 0 : 1;
+ }

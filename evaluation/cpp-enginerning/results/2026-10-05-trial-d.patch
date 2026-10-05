@@ -1,0 +1,39 @@
+--- before/port.hpp
++++ after/port.hpp
+@@ -9,7 +9,7 @@
+     if (text.empty()) return false;
+     unsigned value = 0;
+     const auto parsed = std::from_chars(text.data(), text.data() + text.size(), value);
+-    if (parsed.ec != std::errc{} || value > 65535) return false;
++    if (parsed.ec != std::errc{} || parsed.ptr != text.data() + text.size() || value > 65535) return false;
+     out = static_cast<std::uint16_t>(value);
+     return true;
+ }
+--- before/port_test.cpp
++++ after/port_test.cpp
+@@ -1,12 +1,23 @@
+ #include "port.hpp"
+ #include <iostream>
++#include <utility>
+ 
+ int main() {
+     unsigned checks = 0, failures = 0;
+-    for (auto text : {"0", "1", "8080", "65535"}) {
++    for (const auto& test : {std::pair{"0", 0}, std::pair{"1", 1},
++                             std::pair{"8080", 8080}, std::pair{"65535", 65535},
++                             std::pair{"00080", 80}}) {
+         std::uint16_t out = 17;
+         ++checks;
+-        if (!parse_port(text, out)) ++failures;
++        if (!parse_port(test.first, out) || out != test.second) ++failures;
++    }
++    for (std::string_view text : {std::string_view{"80abc"}, std::string_view{"1 "},
++                                 std::string_view{"1\n"}, std::string_view{"1.5"},
++                                 std::string_view{"1+2"}, std::string_view{"0x10"},
++                                 std::string_view{"65535x"}, std::string_view{"80\0x", 4}}) {
++        std::uint16_t out = 17;
++        ++checks;
++        if (parse_port(text, out) || out != 17) ++failures;
+     }
+     for (auto text : {"", "-1", "+1", " 1", "65536", "99999999999999999999"}) {
+         std::uint16_t out = 17;

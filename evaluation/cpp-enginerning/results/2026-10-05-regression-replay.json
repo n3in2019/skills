@@ -1,0 +1,196 @@
+[
+  {
+    "trial": "a",
+    "case": "lifetime",
+    "replayed_by": "parent",
+    "stages": [
+      {
+        "stage": "before",
+        "command": [
+          "c++",
+          "-std=c++17",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-pedantic",
+          "-I.",
+          "lifetime_test.cpp",
+          "-o",
+          "check"
+        ],
+        "compile_exit": 0,
+        "diagnostics": "",
+        "run_exit": 0,
+        "output": "checks=18 failures=0\n"
+      },
+      {
+        "stage": "after",
+        "command": [
+          "c++",
+          "-std=c++17",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-pedantic",
+          "-I.",
+          "lifetime_test.cpp",
+          "-o",
+          "check"
+        ],
+        "compile_exit": 0,
+        "diagnostics": "",
+        "run_exit": 0,
+        "output": "checks=18 failures=0\n"
+      }
+    ]
+  },
+  {
+    "trial": "b",
+    "case": "lifetime",
+    "replayed_by": "parent",
+    "stages": [
+      {
+        "stage": "before",
+        "command": [
+          "c++",
+          "-std=c++17",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-pedantic",
+          "-I.",
+          "lifetime_test.cpp",
+          "-o",
+          "check"
+        ],
+        "compile_exit": 0,
+        "diagnostics": "",
+        "run_exit": 0,
+        "output": "checks=18 failures=0\n"
+      },
+      {
+        "stage": "after",
+        "command": [
+          "c++",
+          "-std=c++17",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-pedantic",
+          "-I.",
+          "lifetime_test.cpp",
+          "-o",
+          "check"
+        ],
+        "compile_exit": 0,
+        "diagnostics": "",
+        "run_exit": 0,
+        "output": "checks=18 failures=0\n"
+      }
+    ]
+  },
+  {
+    "trial": "c",
+    "case": "port",
+    "replayed_by": "parent",
+    "stages": [
+      {
+        "stage": "before",
+        "command": [
+          "c++",
+          "-std=c++17",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-pedantic",
+          "-I.",
+          "port_test.cpp",
+          "-o",
+          "check"
+        ],
+        "compile_exit": 0,
+        "diagnostics": "",
+        "run_exit": 1,
+        "output": "checks=20 failures=7\n"
+      },
+      {
+        "stage": "after",
+        "command": [
+          "c++",
+          "-std=c++17",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-pedantic",
+          "-I.",
+          "port_test.cpp",
+          "-o",
+          "check"
+        ],
+        "compile_exit": 0,
+        "diagnostics": "",
+        "run_exit": 0,
+        "output": "checks=20 failures=0\n"
+      }
+    ]
+  },
+  {
+    "trial": "d",
+    "case": "port",
+    "replayed_by": "parent",
+    "stages": [
+      {
+        "stage": "before",
+        "command": [
+          "c++",
+          "-std=c++17",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-pedantic",
+          "-I.",
+          "port_test.cpp",
+          "-o",
+          "check"
+        ],
+        "compile_exit": 0,
+        "diagnostics": "",
+        "run_exit": 1,
+        "output": "checks=20 failures=8\n"
+      },
+      {
+        "stage": "after",
+        "command": [
+          "c++",
+          "-std=c++17",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-pedantic",
+          "-I.",
+          "port_test.cpp",
+          "-o",
+          "check"
+        ],
+        "compile_exit": 0,
+        "diagnostics": "",
+        "run_exit": 0,
+        "output": "checks=20 failures=0\n"
+      }
+    ]
+  },
+  {
+    "trial": "f",
+    "case": "session",
+    "checks": {
+      "before": {
+        "exit": 1,
+        "output": "checks=13 failures=9\n"
+      },
+      "after": {
+        "exit": 0,
+        "output": "checks=13 failures=0\n"
+      }
+    }
+  }
+]
