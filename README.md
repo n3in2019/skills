@@ -1,0 +1,35 @@
+# AI 工程 Skills
+
+多个独立、按需加载的 skill 集合。把工程原则转成 AI 的操作步骤、判断条件和验证要求，不复述书籍原文。
+
+| Skill | 用途 |
+| --- | --- |
+| [improve-code-quality](skills/improve-code-quality/SKILL.md) | 限制上下文与改动范围，改善边界并验证渐进重构 |
+
+[AGENTS.md](AGENTS.md) 维护共用协作规则。每个 `skills/<name>/` 独立携带 `SKILL.md`、可选 `agents/openai.yaml` 和按需资源。新增 skill 只扩展自己的目录与本表，不将全部规则注入每次对话。
+
+## 在其他仓库复用
+
+以支持仓库内 `.agents/skills/` 的 Codex 环境为例，在目标仓库根目录执行（需要 Git，目标目录已存在时先审查合并，不覆盖）：
+
+```bash
+git clone https://github.com/n3in2019/skills.git /tmp/ai-engineering-skills
+mkdir -p .agents/skills
+cp -R /tmp/ai-engineering-skills/skills/improve-code-quality .agents/skills/
+```
+
+使用 `$improve-code-quality`，例如：
+
+> 使用 $improve-code-quality 修复当前解析错误。先定位接口、调用者和测试，限制到相关路径，保持其他输入行为并报告验证结果。
+
+其他工具按其支持的 skill 目录放置完整目录；不支持自动加载时，显式要求读取 `SKILL.md`，再按需读取相对引用。只复制需要的 skill。
+
+不要覆盖已有 `AGENTS.md`。合并以下导航，并补齐项目自己的构建/测试命令、语言版本和错误/兼容政策：
+
+> 修改或审查代码时，读取 `.agents/skills/improve-code-quality/SKILL.md`，只加载当前任务相关的实现、接口、调用者和测试；遵循本仓库约定。
+
+## 维护与验证
+
+Frontmatter 包含 `name`、`description`，名称与目录一致。用 skill-creator 的 `quick_validate.py <skill目录>` 检查格式，同时检查相对链接和示例；格式验证不代表任务效果验证。
+
+示例验证方法见 [examples.md](skills/improve-code-quality/references/examples.md)。后续新增有独立触发条件的 skill，避免共用规则重复漂移。

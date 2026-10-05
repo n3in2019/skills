@@ -1,0 +1,4 @@
+interface:
+  display_name: "代码质量小步改进"
+  short_description: "限制上下文与代码改动范围，以行为保护验证渐进式重构和错误处理"
+  default_prompt: "使用 $improve-code-quality 完成当前修改，保持约定行为并报告验证结果。"
